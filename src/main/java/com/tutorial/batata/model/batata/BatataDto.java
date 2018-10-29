@@ -1,5 +1,6 @@
 package com.tutorial.batata.model.batata;
 
+import com.tutorial.batata.model.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,14 +11,10 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"dtUpdate"})
-public class BatataDto {
+public class BatataDto extends BaseModel {
 
+    private Integer id;
     private String name;
     private String type;
     private Date dtUpdate;
-
-    public BatataDto(String name, String type) {
-        this.name = name;
-        this.type = type;
-    }
 }

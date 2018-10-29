@@ -29,7 +29,7 @@ public class BatataController {
     }
 
     @GetMapping(produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-    public ResponseEntity<Page<BatataDto>> findAll(Pageable page){
+    public ResponseEntity<Page> findAll(Pageable page){
         logger.info("Get all Batatas");
         return ResponseEntity.ok(batataService.findAll(page));
     }

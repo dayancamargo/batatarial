@@ -1,5 +1,6 @@
 package com.tutorial.batata.service;
 
+import com.tutorial.batata.model.batata.Batata;
 import com.tutorial.batata.model.batata.BatataDto;
 import com.tutorial.batata.repository.BatataRepository;
 import org.slf4j.Logger;
@@ -16,17 +17,19 @@ public class BatataService {
     private BatataRepository batataRepository;
 
     @Autowired
-    public BatataService(BatataRepository BatataRepository){
-        this.batataRepository = BatataRepository;
+    public BatataService(BatataRepository batataRepository){
+        this.batataRepository = batataRepository;
     }
 
-    public Page<BatataDto> findAll(Pageable page){
+    public Page findAll(Pageable page){
 
-        Page<BatataDto> dtos = batataRepository.findAllDto(page);
+        Page<Batata> dtos = batataRepository.findAll(page);
+        logger.debug("returning: {} ", dtos.getContent());
 
-        logger.debug("returning: {} ", dtos);
-
-        return dtos;
+        return dtos.map(this::convertToDto);
     }
 
+    private BatataDto convertToDto(Batata batata){
+        return new BatataDto(batata.getId(), batata.getName(), batata.getType(), batata.getDtUpdate());
+    }
 }

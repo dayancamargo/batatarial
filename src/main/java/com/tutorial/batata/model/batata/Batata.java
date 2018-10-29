@@ -39,15 +39,10 @@ public class Batata extends BaseModel {
     private Date dtUpdate;
 
     public Batata(BatataDto dto) {
-
         if(dto != null) {
             this.name = dto.getName();
             this.type = dto.getType();
             this.dtUpdate = new Date();
         }
-    }
-
-    public BatataDto dto(){
-        return new BatataDto(this.name, this.type, this.dtUpdate);
     }
 }

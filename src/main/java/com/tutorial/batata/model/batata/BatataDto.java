@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Getter
 @NoArgsConstructor @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"dtUpdate"})
+@EqualsAndHashCode(exclude = {"dtUpdate"}, callSuper = false)
 public class BatataDto extends BaseModel {
 
     private Integer id;

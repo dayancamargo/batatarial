@@ -15,13 +15,13 @@
             <MaxHistory>7</MaxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>[%X{correlation}] %date %-5level [%thread] %class{30} %message %n</pattern>
+            <pattern>[%X{correlation}] %date %-5level %class{30} %message %n</pattern>
         </encoder>
     </appender>
 
     <appender class="ch.qos.logback.core.ConsoleAppender" name="consoleAppender">
         <encoder>
-            <pattern>[%X{correlation}] %date %-5level [%thread] %class{30} %message %n</pattern>
+            <pattern>%cyan([%X{correlation}]) %green(%date %-5level) %yellow(%class{30}) %gray(%message %n)</pattern>
         </encoder>
     </appender>
 
@@ -30,8 +30,9 @@
         <appender-ref ref="consoleAppender"/>
     </logger>
 
-    <root level="INFO">
+    <root level="${LOG_SERVER}">
         <appender-ref ref="fileAppender"/>
         <appender-ref ref="consoleAppender"/>
     </root>
+
 </configuration>

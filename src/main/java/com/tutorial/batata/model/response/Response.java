@@ -1,14 +1,20 @@
-package com.tutorial.batata.model;
+package com.tutorial.batata.model.response;
 
+import com.tutorial.batata.exception.BaseException;
+import com.tutorial.batata.exception.model.Error;
+import com.tutorial.batata.model.BaseModel;
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 /**
  * Class to make a http body response
@@ -20,7 +26,7 @@ import java.util.stream.Stream;
 public class Response <B, M> extends BaseModel {
     private final List<B> data;
     private final List<Error> errors;
-    private final M meta;
+    private final Map<String, M> meta;
 
     public static ContentStep build(){
         return new ContentBuilder();
@@ -29,12 +35,13 @@ public class Response <B, M> extends BaseModel {
     private Response(ContentBuilder builder){
         this.data   = builder.data;
         this.errors = builder.errors;
-        this.meta   = (Objects.nonNull(builder.meta) ?  (M) builder.meta : null);
+        this.meta   = builder.meta;
     }
 
     public interface ContentStep<B> {
         Build withoutContent();
         MetaStep withBody(B body);
+        MetaStep withPagination(B body);
         MetaStep withErrors(Error... errors);
     }
 
@@ -50,13 +57,26 @@ public class Response <B, M> extends BaseModel {
     private static class ContentBuilder<B, M> implements ContentStep<B>, MetaStep<M>, Build {
         private List<B> data;
         private List<Error> errors;
-        private M meta;
+        private Map meta;
 
-        public Build withoutContent() {
-            this.data   = null;
-            this.errors = null;
-            this.meta   = null;
-            return  this;
+        public MetaStep withPagination(@NotNull B body){
+            if(!(body instanceof Page)) {
+                throw new BaseException("Not a paginated object");
+            }
+
+            Page page = ((Page) body);
+
+            data = page.getContent();
+
+            Pagination pagination = new Pagination(page.getNumber(),
+                                                   page.getSize(),
+                                                   page.getTotalElements(),
+                                                   page.getTotalElements());
+
+            meta = new HashMap();
+            meta.put("pagination", pagination);
+
+            return this;
         }
 
         public MetaStep withBody(@NotNull B body){
@@ -78,8 +98,21 @@ public class Response <B, M> extends BaseModel {
         }
 
         public Build withMeta(@NotNull M meta) {
-            this.meta = meta;
+            String key = StringUtils.uncapitalize(meta.getClass().getSimpleName());
+
+            if(Objects.isNull(this.meta)) {
+                this.meta = new HashMap();
+            }
+
+            this.meta.put(key, meta);
             return this;
+        }
+
+        public Build withoutContent() {
+            this.data   = null;
+            this.errors = null;
+            this.meta   = null;
+            return  this;
         }
 
         public Response create() {

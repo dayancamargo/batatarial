@@ -3,8 +3,7 @@ package com.tutorial.batata.service;
 import com.tutorial.batata.model.batata.Batata;
 import com.tutorial.batata.model.batata.BatataDto;
 import com.tutorial.batata.repository.BatataRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -15,9 +14,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class BatataService {
 
-    private static Logger logger = LoggerFactory.getLogger(BatataService.class);
     private BatataRepository batataRepository;
 
     @Autowired
@@ -36,7 +35,7 @@ public class BatataService {
         Example<Batata> exFilter = Example.of(new Batata(filter), batataRepository.pageableMatcher());
 
         Page<Batata> dtos = batataRepository.findAll(exFilter, page);
-        logger.debug("returning: {} ", dtos.getContent());
+        log.debug("returning: {} ", dtos.getContent());
 
         return dtos.map(this::convertToDto);
     }
@@ -51,7 +50,7 @@ public class BatataService {
         Example<Batata> exFilter = Example.of(new Batata(filter), batataRepository.simpleMatcher());
 
         List<Batata> dtos = batataRepository.findAll(exFilter);
-        logger.debug("returning: {} ", dtos);
+        log.debug("returning: {} ", dtos);
 
         return dtos.stream().map(this::convertToDto).collect(Collectors.toList());
     }

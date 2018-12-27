@@ -20,7 +20,7 @@ public class BaseException  extends RuntimeException {
     }
 
     public BaseException(String code, String detail, String title) {
-        this.error = new Error(code, detail, title);
+        this.error = new Error(title, code, detail);
     }
 
     public BaseException(String code, String detail, String title, String pointer) {

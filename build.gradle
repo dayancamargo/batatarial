@@ -29,16 +29,20 @@ ext {
 dependencies {
 	String commonsLang3 = '3.8'
 	String feign = '10.1.0'
+	String starterFeign = '2.0.2.RELEASE'
 
 	implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
 	implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
 
-	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:$starterFeign")
 
-	implementation("io.github.openfeign:feign-okhttp:$feign")
+	implementation("io.github.openfeign:feign-core:$feign")
 	implementation("io.github.openfeign:feign-jackson:$feign")
 	implementation("io.github.openfeign:feign-slf4j:$feign")
+	implementation("io.github.openfeign:feign-jaxrs:$feign")
+	implementation("io.github.openfeign:feign-jaxb:$feign")
+
 
 	implementation("org.apache.commons:commons-lang3:$commonsLang3")
 

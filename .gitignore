@@ -5,6 +5,8 @@
 /log/
 /out/
 /target
+gradlew
+gradlew.bat
 
 ### MAVEN ###
 mvnw

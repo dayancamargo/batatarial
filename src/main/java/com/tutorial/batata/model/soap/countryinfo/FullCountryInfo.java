@@ -1,6 +1,7 @@
-package com.tutorial.batata.model.soap;
+package com.tutorial.batata.model.soap.countryinfo;
 
 import com.tutorial.batata.model.BaseModel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,9 +11,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-@NoArgsConstructor @Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
+@Getter @Setter
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "buscarDadosResponse", namespace = "http://cadastro.ejb.enterprise.cadastros.servicos.sicredi.com.br/")
-public class BuscarDadosResponse extends BaseModel implements Serializable {
-    private OutBuscarDados outBuscarDados;
+@XmlRootElement(name = "FullCountryInfo")
+public class FullCountryInfo extends BaseModel implements Serializable {
+    private String sCountryISOCode;
 }

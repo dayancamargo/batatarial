@@ -16,21 +16,22 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FeignSoapClientConfiguration {
 
-    @Value("${endpoint.soap.informacoes.Cadastrais.url}")
-    private String infoCadUrl;
+    @Value("${endpoint.soap.country.info.url}")
+    private String countryInfoUrl;
 
-    private JAXBContextFactory generateJaxb() {
-        return new JAXBContextFactory.Builder().build();
+
+    private JAXBContextFactory getJaxbContextFactory() {
+        return new JAXBContextFactory.Builder()
+                                     .build();
     }
 
     @Bean
     SoapClient getSoapClient(){
         return Feign.builder()
-                .encoder(new SOAPEncoder(generateJaxb()))
-                .decoder(new SOAPDecoder(generateJaxb()))
-                .logger(new Slf4jLogger(TranslateClient.class))
-                .logLevel(Logger.Level.FULL)
+                .encoder(new SOAPEncoder(getJaxbContextFactory()))
+                .decoder(new SOAPDecoder(getJaxbContextFactory()))
                 .errorDecoder(new SOAPErrorDecoder())
-                .target(SoapClient.class, infoCadUrl);
+                .logger(new Slf4jLogger(SoapClient.class)).logLevel(Logger.Level.FULL)
+                .target(SoapClient.class, countryInfoUrl);
     }
 }

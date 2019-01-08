@@ -120,8 +120,7 @@ public class SOAPEncoder implements Encoder {
       Marshaller marshaller = jaxbContextFactory.createMarshaller((Class<?>) bodyType);
       marshaller.marshal(object, document);
       SOAPMessage soapMessage = MessageFactory.newInstance(soapProtocol).createMessage();
-      soapMessage.setProperty(SOAPMessage.WRITE_XML_DECLARATION,
-          Boolean.toString(writeXmlDeclaration));
+      soapMessage.setProperty(SOAPMessage.WRITE_XML_DECLARATION, Boolean.toString(writeXmlDeclaration));
       soapMessage.setProperty(SOAPMessage.CHARACTER_SET_ENCODING, charsetEncoding.displayName());
       soapMessage.getSOAPBody().addDocument(document);
       ByteArrayOutputStream bos = new ByteArrayOutputStream();

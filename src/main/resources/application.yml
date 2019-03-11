@@ -1,0 +1,51 @@
+### Basic Application Settings
+
+### Server Settings
+server:
+  port: 8880
+
+### Actuator Settings
+management:
+  endpoints:
+    enabled-by-default: true
+    health:
+      show-details: "always"
+    logfile:
+      external-file: "batata.log"
+    web:
+      base-path: "/bactuator"
+      exposure:
+        include: "*"
+
+### Data Source Settings
+spring:
+  datasource:
+    jmx:
+      enable: true
+    driver-class-name: "org.h2.Driver"
+    username: "sa"
+    password:
+    url: "jdbc:h2:mem:testdb"
+#Server:{server.port}/{spring.h2.console.path}   -> http:localhost:8880/h2
+  h2:
+    console:
+      enabled: true
+      path: "/h2"
+#jpa sql logs
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+### Log Settings
+logging:
+  config: "logback-spring.xml"
+
+### Endpoints
+endpoint:
+  url:
+    actuator: "http://localhost:8880/bactuator"
+    translate: "https://api.funtranslations.com"
+    soap:
+      country:
+        info: "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso"

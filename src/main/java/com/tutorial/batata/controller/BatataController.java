@@ -26,7 +26,7 @@ public class BatataController extends RequestInterceptor {
         this.batataService = batataService;
     }
 
-    @GetMapping(produces = { MediaType.APPLICATION_JSON_UTF8_VALUE }, value = "find")
+    @GetMapping(produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
     public Response<BatataDto, Error> pageableFind(Pageable page,
                                         @RequestParam(value = "name", required = false) String name,
                                         @RequestParam(value = "type", required = false) String type) {
@@ -37,19 +37,6 @@ public class BatataController extends RequestInterceptor {
 
         return Response.build()
                        .withPagination(batataService.pageFind(page, filter))
-                       .create();
-    }
-
-    @GetMapping(produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-    public Response<BatataDto, Error> find(@RequestParam(value = "name", required = false) String name,
-                         @RequestParam(value = "type", required = false) String type) {
-
-        BatataDto filter = new BatataDto(null, name, type, null);
-
-        log.info("Get all Batatas with {}", filter);
-
-        return Response.build()
-                       .withBody(batataService.find(filter))
                        .create();
     }
 }

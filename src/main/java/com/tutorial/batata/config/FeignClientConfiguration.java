@@ -15,10 +15,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FeignClientConfiguration {
 
-    @Value("${endpoint.actuator.url}")
+    @Value("${endpoint.url.actuator}")
     private String actuatorUrl;
 
-    @Value("${endpoint.translate.url}")
+    @Value("${endpoint.url.translate}")
     private String translateUrl;
 
     @Bean
@@ -26,6 +26,7 @@ public class FeignClientConfiguration {
         return Feign.builder()
                 .encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder())
+                .errorDecoder(new TranslateErrorDecode())
                 .logger(new Slf4jLogger(ActuatorClient.class))
                 .logLevel(Logger.Level.FULL)
                 .target(ActuatorClient.class, actuatorUrl);
@@ -36,6 +37,7 @@ public class FeignClientConfiguration {
         return Feign.builder()
                 .encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder())
+                .errorDecoder(new TranslateErrorDecode())
                 .logger(new Slf4jLogger(TranslateClient.class))
                 .logLevel(Logger.Level.FULL)
                 .errorDecoder(new TranslateErrorDecode())

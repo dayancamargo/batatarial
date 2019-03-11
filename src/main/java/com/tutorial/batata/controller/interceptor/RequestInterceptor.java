@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
+/**
+ * An interceptor to add a correlation-id on logback; this will put a [correlation-id] value on all logs;
+ */
 public class RequestInterceptor extends HandlerInterceptorAdapter {
 
     @Override

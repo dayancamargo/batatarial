@@ -12,6 +12,8 @@
 
 ## Metrics Actuator examples
 
+###### http://localhost:8880/actuator
+
 ###### http://localhost:8880/actuator/health
 
 ###### http://localhost:8880/actuator/metrics/

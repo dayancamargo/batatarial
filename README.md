@@ -1,9 +1,9 @@
 # Batatarial
 
 ## Batata query example
-###### http://localhost:8881/batata
+###### http://localhost:8880/batata
 
-###### http://localhost:8881/batata?name=potato
+###### http://localhost:8880/batata?name=potato
 
 ###### http://localhost:8880/batata?page=0&size=3
 

@@ -29,48 +29,37 @@ dependencyManagement {
 	}
 }
 dependencies {
-
+	//spring stuff
 	implementation('org.springframework.boot:spring-boot-starter-actuator')
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
+	//spring cloud
 	implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
-
-	implementation('io.github.openfeign:feign-hc5:12.1')
-//	implementation('io.github.openfeign:feign-slf4j:12.1')
-	implementation('io.github.openfeign:feign-soap:12.1')
-
-//	implementation('io.github.openfeign:feign-jackson')
-//	implementation("io.github.openfeign:feign-jaxrs")
-//	implementation("io.github.openfeign:feign-jaxb")
-
+	//Apache commons
 	implementation('org.apache.commons:commons-lang3')
-
+	//Monitoring and trace
 	implementation platform('io.micrometer:micrometer-tracing-bom:latest.release')
 	implementation 'io.micrometer:micrometer-tracing'
 	implementation 'io.micrometer:micrometer-tracing-bridge-brave'
-
-//All this dependencies are just to make soap works :(
-	implementation('com.sun.xml.bind:jaxb-ri:2.3.3')
-	implementation('javax.xml.soap:javax.xml.soap-api:1.4.0')
-	implementation('javax.xml.bind:jaxb-api:2.4.0-b180830.0359')
-	implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
-	implementation 'com.sun.xml.messaging.saaj:saaj-impl:1.5.1'
+	//Feign encoders
+	implementation('io.github.openfeign:feign-soap:12.1')
+	//All this dependencies are just to make soap works :(
+	//These are the maximum updated versions to work, after that just keep missing something
+	implementation 'org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438'
+	implementation 'com.sun.xml.messaging.saaj:saaj-impl:1.5.3'
 	implementation('javax.xml.ws:jaxws-api:2.3.1')
-// ------------------
-
+	//database
 	runtimeOnly('com.h2database:h2')
-
+	//lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
-
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	//tests stuf
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

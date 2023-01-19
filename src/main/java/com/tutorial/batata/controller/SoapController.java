@@ -31,10 +31,8 @@ public class SoapController {
 
         log.info("Get country({}) information data from a soap service.", isoCode);
 
-        FullCountryInfo request = new FullCountryInfo(isoCode);
-
         return Response.build()
-                       .withBody(soapService.getFullInfo(request))
+                       .withBody(soapService.getFullInfo(new FullCountryInfo(isoCode)))
                        .create();
     }
 

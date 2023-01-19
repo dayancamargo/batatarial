@@ -21,6 +21,7 @@ public class SoapService {
     }
 
     public FullCountryInfoResponse getFullInfo(FullCountryInfo request){
+
         FullCountryInfoResponse meh = soapClient.fullCountryInfo(request);
         log.debug("InfoResponse : {}", meh);
         return meh;

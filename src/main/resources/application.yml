@@ -50,3 +50,11 @@ endpoint:
       country:
         info-wsdl: "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL"
         info: "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso"
+
+#feign.client.config.default.loggerLevel = full
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL

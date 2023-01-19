@@ -4,21 +4,21 @@ import com.tutorial.batata.model.soap.continents.ListOfContinentsByCode;
 import com.tutorial.batata.model.soap.continents.ListOfContinentsByCodeResponse;
 import com.tutorial.batata.model.soap.countryinfo.FullCountryInfo;
 import com.tutorial.batata.model.soap.countryinfo.FullCountryInfoResponse;
-import feign.Headers;
-import feign.RequestLine;
-import org.springframework.stereotype.Component;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-@Component
+//@Component
+@FeignClient(
+        name = "country-info-soap",
+        url = "${endpoint.url.soap.country.info-wsdl}")
 public interface SoapClient {
 
-    @RequestLine("POST")
-    @Headers({"SOAPAction: ''",
-            "Content-Type:  text/xml;charset=UTF-8"})
-    FullCountryInfoResponse fullCountryInfo(FullCountryInfo info);
+    @PostMapping(produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+    FullCountryInfoResponse fullCountryInfo(@RequestBody FullCountryInfo info);
 
 
-    @RequestLine("POST")
-    @Headers({"SOAPAction: ''",
-            "Content-Type:  text/xml;charset=UTF-8"})
-    ListOfContinentsByCodeResponse listOfContinents(ListOfContinentsByCode request);
+    @PostMapping(produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+    ListOfContinentsByCodeResponse listOfContinents(@RequestBody ListOfContinentsByCode request);
 }

@@ -48,4 +48,5 @@ endpoint:
     translate: "https://api.funtranslations.com"
     soap:
       country:
+        info-wsdl: "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL"
         info: "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso"

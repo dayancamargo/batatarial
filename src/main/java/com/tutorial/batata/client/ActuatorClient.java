@@ -3,19 +3,19 @@ package com.tutorial.batata.client;
 import com.tutorial.batata.model.actuator.Health;
 import com.tutorial.batata.model.actuator.Metric;
 import com.tutorial.batata.model.actuator.Metrics;
-import feign.Param;
-import feign.RequestLine;
-import org.springframework.stereotype.Component;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-@Component
+@FeignClient(value = "actuator-client", url = "${endpoint.url.actuator}")
 public interface ActuatorClient {
 
-    @RequestLine("GET /health")
+    @GetMapping(value = "/health")
     Health health();
 
-    @RequestLine("GET /metrics")
+    @GetMapping(value = "/metrics")
     Metrics metrics();
 
-    @RequestLine("GET /metrics/{metricName}")
-    Metric metric(@Param("metricName") String metricName);
+    @GetMapping(value = "/metrics/{metricName}")
+    Metric metric(@PathVariable("metricName") String metricName);
 }

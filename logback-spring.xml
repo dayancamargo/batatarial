@@ -21,7 +21,7 @@
 
     <appender class="ch.qos.logback.core.ConsoleAppender" name="consoleAppender">
         <encoder>
-            <pattern>%cyan([%X{correlation}]) %green(%date %-5level) %yellow(%class{30}) %gray(%message %n)</pattern>
+            <pattern>%cyan(%X{traceId} ${HOSTNAME})  %green(%date %-5level) %yellow(%class{30}) %gray(%message %n)</pattern>
         </encoder>
     </appender>
 

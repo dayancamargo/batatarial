@@ -3,11 +3,11 @@ package com.tutorial.batata.model.response;
 import com.tutorial.batata.exception.BaseException;
 import com.tutorial.batata.exception.model.Error;
 import com.tutorial.batata.model.BaseModel;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;

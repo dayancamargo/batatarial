@@ -1,6 +1,5 @@
 package com.tutorial.batata.controller;
 
-import com.tutorial.batata.controller.interceptor.RequestInterceptor;
 import com.tutorial.batata.exception.model.Error;
 import com.tutorial.batata.model.response.Response;
 import com.tutorial.batata.model.soap.continents.ListOfContinentsByCode;
@@ -18,15 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("country-info")
 @Slf4j
-public class SoapController extends RequestInterceptor {
+public class SoapController {
 
-    private SoapService soapService;
+    private final SoapService soapService;
 
     @Autowired
     public SoapController(SoapService soapService) {
         this.soapService = soapService;
     }
-
 
     @GetMapping(value = "/full-info/{isoCode}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
     public Response<FullCountryInfoResponse, Error> fullInfo(@PathVariable("isoCode") String isoCode) {

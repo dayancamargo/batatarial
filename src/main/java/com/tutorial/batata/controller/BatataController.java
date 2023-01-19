@@ -1,6 +1,5 @@
 package com.tutorial.batata.controller;
 
-import com.tutorial.batata.controller.interceptor.RequestInterceptor;
 import com.tutorial.batata.exception.model.Error;
 import com.tutorial.batata.model.batata.BatataDto;
 import com.tutorial.batata.model.response.Response;
@@ -17,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController()
 @RequestMapping("batata")
 @Slf4j
-public class BatataController extends RequestInterceptor {
+public class BatataController {
 
-    private BatataService batataService;
+    private final BatataService batataService;
 
     @Autowired
     public BatataController(BatataService batataService) {

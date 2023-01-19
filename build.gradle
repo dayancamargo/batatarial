@@ -1,66 +1,73 @@
-buildscript {
-	ext {
-		springBootVersion = '2.1.3.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.1'
+	id 'io.spring.dependency-management' version '1.1.0'
 }
 
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
 group = 'com.tutorial'
-version = '0.0.2'
+version = '0.0.3'
 
 repositories {
 	mavenCentral()
 }
 
-ext {
-	springCloudVersion = 'Greenwich.RELEASE'
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
 }
 
-dependencies {
-	String commonsLang3 = '3.8'
-	String feign = '10.2.0'
-	String starterFeign = '2.1.1.RELEASE'
-	String javaxXml = '2.3.0'
-	String saaj = '1.5.1'
+jar {
+	enabled = false
+}
 
-	implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
-	implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-
-	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:$starterFeign")
-
-	implementation("io.github.openfeign:feign-core:$feign")
-	implementation("io.github.openfeign:feign-jackson:$feign")
-	implementation("io.github.openfeign:feign-slf4j:$feign")
-	implementation("io.github.openfeign:feign-soap:$feign")
-
-//All this dependencies are just to make soap works :(
-	implementation("javax.xml.ws:jaxws-api:$javaxXml")
-	implementation("javax.xml.bind:jaxb-api:$javaxXml")
-	implementation("com.sun.xml.bind:jaxb-core:$javaxXml")
-	implementation("com.sun.xml.bind:jaxb-impl:$javaxXml")
-	implementation("com.sun.xml.messaging.saaj:saaj-impl:$saaj")
-//soap dep
-
-	implementation("org.apache.commons:commons-lang3:$commonsLang3")
-
-	runtimeOnly("com.h2database:h2")
-	compileOnly("org.projectlombok:lombok")
-
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+ext {
+	set('springCloudVersion', "2022.0.0")
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
+}
+
+dependencies {
+
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+
+	implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
+	implementation('io.github.openfeign:feign-soap')
+	implementation('io.github.openfeign:feign-jackson')
+
+	implementation('jakarta.validation:jakarta.validation-api:3.0.2')
+
+	implementation('org.apache.commons:commons-lang3')
+
+	implementation platform('io.micrometer:micrometer-tracing-bom:latest.release')
+	implementation 'io.micrometer:micrometer-tracing'
+	implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+
+	//All this dependencies are just to make soap works :(
+	implementation('javax.xml.ws:jaxws-api:2.3.1')
+	implementation('javax.xml.bind:jaxb-api:2.4.0-b180830.0359')
+	implementation('com.sun.xml.bind:jaxb-core:4.0.1')
+	implementation('com.sun.xml.bind:jaxb-impl:4.0.1')
+	implementation('com.sun.xml.messaging.saaj:saaj-impl:3.0.0-M2')
+
+	runtimeOnly('com.h2database:h2')
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
 }

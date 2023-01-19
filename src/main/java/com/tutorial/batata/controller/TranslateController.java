@@ -1,6 +1,5 @@
 package com.tutorial.batata.controller;
 
-import com.tutorial.batata.controller.interceptor.RequestInterceptor;
 import com.tutorial.batata.exception.model.Error;
 import com.tutorial.batata.model.response.Response;
 import com.tutorial.batata.model.translate.TranslateRequest;
@@ -17,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController()
 @RequestMapping("translate")
 @Slf4j
-public class TranslateController extends RequestInterceptor {
+public class TranslateController {
 
-    private TranslateService translateService;
+    private final TranslateService translateService;
 
     @Autowired
     public TranslateController(TranslateService translateService) {

@@ -1,6 +1,5 @@
 package com.tutorial.batata.controller;
 
-import com.tutorial.batata.controller.interceptor.RequestInterceptor;
 import com.tutorial.batata.exception.model.Error;
 import com.tutorial.batata.model.actuator.Health;
 import com.tutorial.batata.model.actuator.Metric;
@@ -15,14 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.websocket.server.PathParam;
-
 @RestController()
 @RequestMapping("actuator")
 @Slf4j
-public class ActuatorController extends RequestInterceptor {
+public class ActuatorController {
 
-    private ActuatorService actuatorService;
+    private final ActuatorService actuatorService;
 
     @Autowired
     public ActuatorController(ActuatorService actuatorService) {

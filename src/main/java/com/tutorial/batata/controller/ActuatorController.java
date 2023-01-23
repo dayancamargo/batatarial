@@ -8,7 +8,6 @@ import com.tutorial.batata.model.response.Response;
 import com.tutorial.batata.service.ActuatorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,7 @@ public class ActuatorController {
         this.actuatorService = actuatorService;
     }
 
-    @GetMapping(value = "/health", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+    @GetMapping(value = "/health")
     public Response<Health, Error> getById() {
 
         log.info("Get Health properties.");
@@ -36,7 +35,7 @@ public class ActuatorController {
                 .create();
     }
 
-    @GetMapping(value = "/metrics", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+    @GetMapping(value = "/metrics")
     public Response<Metrics, Error> getMetrics() {
 
         log.info("Get all Metrics.");
@@ -46,7 +45,7 @@ public class ActuatorController {
                 .create();
     }
 
-    @GetMapping(value = "/metrics/{metricName}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+    @GetMapping(value = "/metrics/{metricName}")
     public Response<Metric, Error> getMetrics(@PathVariable("metricName") String metricName) {
 
         log.info("Get all Metrics.");

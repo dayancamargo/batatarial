@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,7 +56,16 @@ public class BatataService {
         return dtos.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    private BatataDto convertToDto(Batata batata) {
-        return new BatataDto(batata.getId(), batata.getName(), batata.getType(), batata.getDtUpdate());
+    public BatataDto create(final BatataDto dto) {
+        return convertToDto(batataRepository.save(new Batata(dto)));
     }
+
+    private BatataDto convertToDto(Batata batata) {
+        if(Objects.nonNull(batata)) {
+            return new BatataDto(batata.getId(), batata.getName(), batata.getType(), batata.getDtUpdate());
+        }
+
+        return null;
+    }
+
 }

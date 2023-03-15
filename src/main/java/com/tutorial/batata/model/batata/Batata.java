@@ -1,18 +1,35 @@
 package com.tutorial.batata.model.batata;
 
-import com.tutorial.batata.model.BaseModel;
-import jakarta.persistence.*;
-import lombok.*;
+import com.tutorial.batata.repository.AuditCommons;
+import com.tutorial.batata.repository.JpaListener;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.envers.AuditOverride;
 
-import java.util.Date;
+import java.io.Serializable;
 
 @Entity
+@EntityListeners(JpaListener.class)
 @Table
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
-public class Batata extends BaseModel {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@AuditOverride(forClass = AuditCommons.class)
+public class Batata extends AuditCommons implements Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column
@@ -21,15 +38,28 @@ public class Batata extends BaseModel {
     @Column
     private String type;
 
-    @Column(name = "last_modification") @Temporal(TemporalType.TIMESTAMP)
-    @Setter(AccessLevel.NONE)
-    private Date dtUpdate;
+    @Column(name = "father_id", nullable = false)
+    private Integer fatherId;
 
     public Batata(BatataDto dto) {
         if(dto != null) {
             this.name = dto.name();
             this.type = dto.type();
-            this.dtUpdate = new Date();
+            this.fatherId = dto.fatherId();
         }
+    }
+
+    public BatataDto toDto() {
+        return new BatataDto(this.id,
+                             this.name,
+                             this.type,
+                             this.fatherId,
+                             this.getCreatedAt().toLocalDateTime(),
+                             this.getUpdatedAt().toLocalDateTime());
+    }
+
+    @Override
+    public String toString() {
+       return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 }

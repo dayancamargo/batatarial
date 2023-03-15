@@ -7,6 +7,7 @@ import feign.jaxb.JAXBContextFactory;
 import feign.soap.SOAPDecoder;
 import feign.soap.SOAPEncoder;
 import org.springframework.context.annotation.Bean;
+
 public class FeignSoapClientConfiguration {
 
     @Bean

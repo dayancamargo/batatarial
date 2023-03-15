@@ -2,7 +2,8 @@
 .gradle
 /gradle/
 !gradle/wrapper/gradle-wrapper.jar
-/log/
+/logs/
+/log
 /out/
 /target
 gradlew

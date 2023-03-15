@@ -23,6 +23,7 @@ import java.util.Objects;
  */
 @Getter
 public class Response <B, M> extends BaseModel {
+
     private final List<B> data;
     private final List<Error> errors;
     private final Map<String, M> meta;

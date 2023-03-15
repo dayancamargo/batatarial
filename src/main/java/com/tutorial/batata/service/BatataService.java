@@ -60,12 +60,15 @@ public class BatataService {
         return convertToDto(batataRepository.save(new Batata(dto)));
     }
 
+    public BatataDto addChild(Integer fatherId, BatataDto batataDto) {
+        return null;
+    }
+
     private BatataDto convertToDto(Batata batata) {
         if(Objects.nonNull(batata)) {
-            return new BatataDto(batata.getId(), batata.getName(), batata.getType(), batata.getDtUpdate());
+            return new BatataDto(batata.getId(), batata.getName(), batata.getType(), batata.getFatherId(), batata.getCreatedAt().toLocalDateTime(), batata.getUpdatedAt().toLocalDateTime());
         }
 
         return null;
     }
-
 }

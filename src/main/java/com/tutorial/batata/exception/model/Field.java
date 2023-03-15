@@ -10,6 +10,7 @@ import java.util.Objects;
 @Getter
 @RequiredArgsConstructor
 public class Field extends BaseModel {
+
     @NonNull private String parameter;
     private String value;
 

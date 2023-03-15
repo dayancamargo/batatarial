@@ -1,0 +1,15 @@
+### Basic Application Settings
+
+### Server Settings
+server:
+  port: 8881
+spring:
+  application:
+    name: batata-test-dev
+## Log Settings
+#logging:
+##  pattern: "%cyan(%X{traceId} ${HOSTNAME})  %green(%date %-5level) %yellow(%class{30}) %gray(%message %n)"
+#  pattern: "[%X{correlation}] %date %-5level  M=%class{30} %message %n"
+#  level:
+#    server: DEBUG
+#    application: DEBUG
